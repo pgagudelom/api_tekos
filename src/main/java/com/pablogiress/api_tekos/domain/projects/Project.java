@@ -24,8 +24,13 @@ public class Project {
     private String status;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 
     public Project(DataNewProject data) {
     }
+
+
+
 }
