@@ -16,7 +16,7 @@ public class ListProjectService {
 
     @Transactional
     public Page<DataListProject> listProjects(Pageable pagination){
-        return projectRepository.findAllProjects(pagination).map(DataListProject::new);
+        return projectRepository.findByStatusActive(pagination).map(DataListProject::new);
 
     }
 }

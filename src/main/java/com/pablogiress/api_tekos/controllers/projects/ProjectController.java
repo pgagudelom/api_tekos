@@ -1,13 +1,7 @@
 package com.pablogiress.api_tekos.controllers.projects;
 
-import com.pablogiress.api_tekos.domain.projects.DataListProject;
-import com.pablogiress.api_tekos.domain.projects.DataNewProject;
-import com.pablogiress.api_tekos.domain.projects.DataResponseProject;
-import com.pablogiress.api_tekos.domain.projects.DataUpdateProject;
-import com.pablogiress.api_tekos.domain.projects.services.DetailProjectService;
-import com.pablogiress.api_tekos.domain.projects.services.ListProjectService;
-import com.pablogiress.api_tekos.domain.projects.services.NewProjectService;
-import com.pablogiress.api_tekos.domain.projects.services.UpdateProjectService;
+import com.pablogiress.api_tekos.domain.projects.*;
+import com.pablogiress.api_tekos.domain.projects.services.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +30,9 @@ public class ProjectController {
 
     @Autowired
     UpdateProjectService updateProjectService;
+
+    @Autowired
+    LogicalDeleteProjectService logicalDeleteProjectService;
 
     //----------------------------------------------------------------
 
@@ -66,6 +63,14 @@ public class ProjectController {
     @Transactional
     public ResponseEntity<DataResponseProject> updateProject(@RequestBody @Valid DataUpdateProject data){
         var project = updateProjectService.updateProject(data);
+
+        return ResponseEntity.ok(project);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<ResponseLogicalDeleteProject> deleteProject(@PathVariable Long id){
+        var project = logicalDeleteProjectService.deleteProject(id);
 
         return ResponseEntity.ok(project);
     }

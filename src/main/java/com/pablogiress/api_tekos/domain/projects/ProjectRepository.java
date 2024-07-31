@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     @Query("""
-            SELECT a FROM Project a ORDER BY createdAt DESC
+            SELECT a FROM Project a WHERE status = 'active' ORDER BY createdAt DESC
             """)
-    Page<Project> findAllProjects(Pageable pagination);
+    Page<Project> findByStatusActive(Pageable pagination);
 }
